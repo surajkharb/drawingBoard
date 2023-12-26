@@ -140,7 +140,78 @@ ll.firstOccur(50);
 ll.insertAt(55, 3);
 ll.printList();
 
+// Queue
+class Queue {
+  constructor() {
+    this.items = {};
+    this.frontIndex = 0;
+    this.backIndex = 0;
+  }
+  enqueue(elem) {
+    this.items[this.backIndex] = elem;
+    this.backIndex++;
+  }
+  dequeue() {
+    if (Object.keys(this.items).length == 0) {
+      console.log("Queue is empty");
+      return;
+    }
+    let remove = this.items[this.frontIndex];
+    delete this.items[this.frontIndex];
+    this.frontIndex++;
+    return remove;
+  }
+  printQueue() {
+    console.log("Queue", this.items);
+  }
+}
+
+let que = new Queue();
+console.log("1-frontIndex", que.frontIndex);
+console.log("1-backIndex", que.backIndex);
+que.dequeue();
+que.printQueue();
+console.log("2-frontIndex", que.frontIndex);
+console.log("2-backIndex", que.backIndex);
+que.enqueue("car");
+que.printQueue();
+console.log("3-frontIndex", que.frontIndex);
+console.log("3-backIndex", que.backIndex);
+que.dequeue();
+que.printQueue();
+que.dequeue();
+console.log("4-frontIndex", que.frontIndex);
+console.log("4-backIndex", que.backIndex);
+
+// Value equal to index value
+class Solution {
+  valueEqualToIndex(arr, n) {
+    let resultArr = [];
+    for (let i = 0; i < n; i++) {
+      if (arr[i] == i + 1) {
+        resultArr.push(i + 1);
+      }
+    }
+    return resultArr;
+  }
+}
+
 // Palindrome checker
+class Solution {
+  PalinArray(arr, n) {
+    let result = 1;
+    for (let i = 0; i < n; i++) {
+      let toCheck = arr[i].toString();
+      let afterReverse = arr[i].toString().split("").reverse().join("");
+      if (toCheck != afterReverse) {
+        result = 0;
+        break;
+      }
+    }
+    return result;
+  }
+}
+
 class Solution {
   PalinArray(arr, n) {
     let palin = 1;
@@ -189,3 +260,32 @@ class Solution {
     return result;
   }
 }
+
+// Given an array, rotate the array by one position in clock-wise direction
+class Solution {
+  rotate(arr, n) {
+    let lastItem = arr.pop();
+    arr.unshift(lastItem);
+    return arr;
+  }
+}
+
+// Write a program to implement a Stack using Array. Your task is to use the class as shown in the comments in the code editor and complete the functions push() and pop() to implement a stack.
+//Function to push an integer into the stack.
+MyStack.prototype.push = function (x) {
+  if (!this.arr || this.arr.length == 0) {
+    this.arr = [];
+  }
+  this.arr.push(x);
+};
+//Function to remove an item from top of the stack.
+MyStack.prototype.pop = function () {
+  if (!this.arr || this.arr.length == 0) {
+    return -1;
+  }
+  let popElem = this.arr.pop();
+  if (!popElem) {
+    return -1;
+  }
+  return popElem;
+};
