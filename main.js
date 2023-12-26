@@ -152,6 +152,9 @@ class Queue {
     this.backIndex++;
   }
   dequeue() {
+    // if (this.frontIndex == this.backIndex) {
+    //   return -1;
+    // }
     if (Object.keys(this.items).length == 0) {
       console.log("Queue is empty");
       return;
@@ -278,6 +281,7 @@ MyStack.prototype.push = function (x) {
   }
   this.arr.push(x);
 };
+
 //Function to remove an item from top of the stack.
 MyStack.prototype.pop = function () {
   if (!this.arr || this.arr.length == 0) {
@@ -289,3 +293,29 @@ MyStack.prototype.pop = function () {
   }
   return popElem;
 };
+
+// You are required to complete the two methods push() which take one argument an integer 'x' to be pushed into the queue and pop() which returns a integer poped out from othe queue. If the queue is empty, it should return -1 on a pop operation.
+class MyQueue {
+  constructor() {
+    this.front = 0;
+    this.rear = 0;
+    this.arr = new Array(100005);
+  }
+
+  //Function to push an element x in a queue.
+  push(x) {
+    this.arr[this.rear] = x;
+    this.rear++;
+  }
+
+  //Function to pop an element from queue and return that element.
+  pop() {
+    if (this.front == this.rear) {
+      return -1;
+    }
+    let removed = this.arr[this.front];
+    delete this.arr[this.front];
+    this.front++;
+    return removed;
+  }
+}
