@@ -319,3 +319,96 @@ class MyQueue {
     return removed;
   }
 }
+
+// Given an array of N integers, and an integer K, find the number of pairs of elements in the array whose sum is equal to K.
+class Solution {
+  getPairsCount(arr, n, k) {
+    let result = 0;
+    arr.sort(function (a, b) {
+      return a - b;
+    });
+    for (let i = 0; i < n; i++) {
+      let findElem = k - arr[i];
+      if (findElem < 0) {
+        break;
+      }
+      for (let j = i + 1; j < n; j++) {
+        if (arr[j] == findElem) {
+          result++;
+        } else if (arr[j] > findElem) {
+          break;
+        }
+      }
+    }
+    return result;
+  }
+}
+
+// Given an array of N strings, find the longest common prefix among all strings present in the array
+class Solution {
+  getPairsCount(arr, n, k) {
+    let result = 0;
+    let tally = {};
+    for (let i = 0; i < n; i++) {
+      if (tally[arr[i].toString()]) {
+        tally[arr[i].toString()] += 1;
+      } else {
+        tally[arr[i].toString()] = 1;
+      }
+    }
+    for (let i = 0; i < n; i++) {
+      let elemNeeded = k - arr[i];
+      if (arr[i] == elemNeeded) {
+        result += tally[elemNeeded.toString()] - 1;
+      } else if (tally[elemNeeded.toString()]) {
+        result += tally[elemNeeded.toString()];
+      }
+    }
+    return result / 2;
+  }
+}
+
+class Solution {
+  longestCommonPrefix(arr, n) {
+    //code
+    let smallestString = "";
+    let commonString = "";
+    for (let i = 0; i < n; i++) {
+      let elemLength = arr[i].length;
+      if (smallestString == "" || smallestString.length > elemLength) {
+        smallestString = arr[i];
+      }
+    }
+    for (let i = 0; i < smallestString.length; i++) {
+      if (commonString.length == i) {
+        commonString += smallestString[i];
+        for (let j = 0; j < n; j++) {
+          if (arr[j][i] != smallestString[i]) {
+            commonString = commonString.slice(0, i);
+            break;
+          }
+        }
+      } else {
+        break;
+      }
+    }
+
+    return commonString ? commonString : -1;
+  }
+}
+
+// Given an array A of N integers. Your task is to write a program to find the maximum value of ∑arr[i]*i, where i = 0, 1, 2,., n 1. You are allowed to rearrange the elements of the array. Note: Since output could be large, hence module 109+7 and then print answer.
+class Solution {
+  Maximize(arr, n) {
+    //code here
+    let result = 0;
+    arr.sort(function (a, b) {
+      return a - b;
+    });
+    for (let i = 0; i < n; i++) {
+      result += arr[i] * i;
+    }
+
+    return result % (10 ** 9 + 7);
+  }
+}
