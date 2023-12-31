@@ -344,7 +344,6 @@ class Solution {
   }
 }
 
-// Given an array of N strings, find the longest common prefix among all strings present in the array
 class Solution {
   getPairsCount(arr, n, k) {
     let result = 0;
@@ -368,6 +367,7 @@ class Solution {
   }
 }
 
+// Given an array of N strings, find the longest common prefix among all strings present in the array
 class Solution {
   longestCommonPrefix(arr, n) {
     //code
@@ -410,5 +410,124 @@ class Solution {
     }
 
     return result % (10 ** 9 + 7);
+  }
+}
+
+// Given an array nums[] of size n, construct a Product Array P (of same size n) such that P[i] is equal to the product of all the elements of nums except nums[i]. Note: Try to solve this problem without using the division operation.
+class Solution {
+  productExceptSelf(nums, n) {
+    //code here
+    let resultArr = [];
+    let productAll = 1;
+    let countZero = 0;
+    for (let i = 0; i < n; i++) {
+      if (nums[i] == 0) {
+        countZero++;
+        continue;
+      }
+      productAll = productAll * nums[i];
+    }
+    for (let i = 0; i < n; i++) {
+      if (nums[i] == 0 && countZero == 1) {
+        resultArr[i] = productAll;
+      } else if (countZero > 1 || (nums[i] != 0 && countZero == 1)) {
+        resultArr[i] = 0;
+      } else {
+        resultArr[i] = productAll / nums[i];
+      }
+    }
+
+    return resultArr;
+  }
+}
+
+// Alternate positive and negative numbers
+// Given an unsorted array Arr of N positive and negative numbers. Your task is to create an array of alternate positive and negative numbers without changing the relative order of positive and negative numbers. Note: Array should start with a positive number and 0 (zero) should be considered a positive element.
+class Solution {
+  rearrange(arr, n) {
+    //code here
+    let resultArr = [];
+    let posArr = [];
+    let negArr = [];
+    for (let i = 0; i < n; i++) {
+      if (arr[i] < 0) {
+        negArr.push(arr[i]);
+      } else {
+        posArr.push(arr[i]);
+      }
+    }
+
+    if (posArr.length >= negArr.length) {
+      let j = 1;
+      for (let i = 0; i < negArr.length; i++) {
+        posArr.splice(j, 0, negArr[i]);
+        j += 2;
+      }
+      resultArr = posArr;
+    } else {
+      let j = 0;
+      for (let i = 0; i < posArr.length; i++) {
+        negArr.splice(j, 0, posArr[i]);
+        j += 2;
+      }
+      resultArr = negArr;
+    }
+
+    return resultArr;
+  }
+}
+
+// Three way partitioning
+// Given an array of size n and a range [a, b]. The task is to partition the array around the range such that array is divided into three parts. 1) All elements smaller than a come first. 2) All elements in range a to b come next. 3) All elements greater than b appear in the end. The individual elements of three sets can appear in any order. You are required to return the modified array. Note: The generated output is 1 if you modify the given array successfully.
+class Solution {
+  threeWayPartition(array, a, b) {
+    //your code here
+    let front = [];
+    let mid = [];
+    let last = [];
+
+    for (let elem of array) {
+      if (elem < a) {
+        front.push(elem);
+      } else if (a <= elem && elem <= b) {
+        mid.push(elem);
+      } else if (elem > b) {
+        last.push(elem);
+      }
+    }
+
+    const resultArray = [...front, ...mid, ...last];
+    for (let i = 0; i < array.length; i++) {
+      array[i] = resultArray[i];
+    }
+
+    return array;
+  }
+}
+
+// slower solution
+class Solution {
+  //Function to partition the array around the range such
+  //that array is divided into three parts.
+  threeWayPartition(array, a, b) {
+    //your code here
+    let resultArr = [];
+    let smallerIndex = 0;
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] < a) {
+        resultArr.splice(smallerIndex, 0, array[i]);
+        smallerIndex++;
+      } else if (array[i] >= a && array[i] <= b) {
+        resultArr.splice(smallerIndex, 0, array[i]);
+      } else {
+        resultArr.splice(resultArr.length, 0, array[i]);
+      }
+    }
+
+    for (let i = 0; i < array.length; i++) {
+      array[i] = resultArr[i];
+    }
+
+    return array;
   }
 }
