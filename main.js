@@ -740,3 +740,57 @@ class Solution {
     }, 0);
   }
 }
+
+//The Celebrity Problem
+//A celebrity is a person who is known to all but does not know anyone at a party. If you go to a party of N people, find if there is a celebrity in the party or not. A square NxN matrix M[][] is used to represent people at the party such that if an element of row i and column j  is set to 1 it means ith person knows jth person. Here M[i][i] will always be 0. Note: Follow 0 based indexing. Follow Up: Can you optimize it to O(N)
+class Solution {
+  //Function to find if there is a celebrity in the party or not.
+  celebrity(M, n) {
+    // code here
+    let celeb = -1;
+    for (let i = 0; i < n; i++) {
+      if (M[i].indexOf(1) < 0) {
+        celeb = i;
+      }
+    }
+    for (let i = 0; i < n; i++) {
+      if (i == celeb) {
+        continue;
+      }
+      if (M[i][celeb] != 1) {
+        celeb = -1;
+        break;
+      }
+    }
+    return celeb;
+  }
+}
+
+//Minimum Swaps to Sort
+//Given an array of n distinct elements. Find the minimum number of swaps required to sort the array in strictly increasing order.
+//slower solution
+class Solution {
+  //Function to find the minimum number of swaps required to sort the array.
+  minSwaps(nums) {
+    // code here
+    let swapCount = 0;
+    let sortedArr = nums
+      .map((elem) => {
+        return elem;
+      })
+      .sort((a, b) => {
+        return a - b;
+      });
+    nums.map((elem, index) => {
+      if (nums[index] != sortedArr[index]) {
+        let atIndex = nums.indexOf(sortedArr[index]);
+        nums[index] = nums[atIndex];
+        nums[atIndex] = elem;
+
+        swapCount++;
+      }
+    });
+
+    return swapCount;
+  }
+}
