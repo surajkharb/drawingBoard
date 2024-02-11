@@ -71,3 +71,31 @@ class Solution {
     return resultArr.reverse();
   }
 }
+
+//Majority Element
+//Given an array A of N elements. Find the majority element in the array. A majority element in an array A of size N is an element that appears strictly more than N/2 times in the array.
+class Solution {
+  majorityElement(a, size) {
+    //your code here
+    let majorityElem = -1;
+    let tally = {};
+
+    for (let i = 0; i < size; i++) {
+      if (tally[a[i]]) {
+        tally[a[i]]++;
+      } else {
+        tally[a[i]] = 1;
+      }
+    }
+
+    let keys = Object.keys(tally);
+    for (let i = 0; i < keys.length; i++) {
+      if (tally[keys[i]] > size / 2) {
+        majorityElem = keys[i];
+        break;
+      }
+    }
+
+    return majorityElem;
+  }
+}
